@@ -15,7 +15,10 @@ int main(){
 	std::priority_queue<bool> vip;
 	vector<float> arrs;
 	vector<float> servicing;
-	vector<float> waiting;
+	vector<float> normal_waiting;
+	vector<float> vip_waiting;
+		vector<float> waiting;
+
 
 	int n;
 	float a, s, p;
@@ -40,7 +43,8 @@ int main(){
   while(i<n){
 	  randarrivalHour = 0;
 	  while (randarrivalHour<7){
-		v = (rand()%10);
+		v = (rand()%2);
+		cout << "v is " <<v;
 		v = v/10;
 		if(v>0.5){
 			vip.push(1);
@@ -63,6 +67,7 @@ int main(){
 	  std::vector<float>::iterator sr = servicing.begin();
 	  for(std::vector<float>::iterator ar = arrs.begin(); ar != arrs.end(); ++ar){ 
 		  if(finish > *ar){
+
 			  float b = finish - *ar;
 			  waiting.push_back(b);
 			  finish = finish + *sr;
