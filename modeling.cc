@@ -2,18 +2,23 @@
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>  
 #include <time.h>       /* time */
-#include <vector>
+#include <queue>          // std::priority_queue
+#include <vector>         // std::vector
+#include <functional>     // std::greater
 #include <iterator>
+#include <math.h>
 
 using namespace std;
 
-void main(){
+int main(){
 
+	std::priority_queue<bool> vip;
 	vector<float> arrs;
 	vector<float> servicing;
 	vector<float> waiting;
+
 	int n;
-	float a, s;
+	float a, s, p;
 	cin >> n;
 	cin >> a;
 	cin >> s;
@@ -27,6 +32,7 @@ void main(){
 	double iSecret, iGuess;
 	long countpeople= 0;
 
+
   /* initialize random seed: */
   srand (time(NULL));
 
@@ -34,9 +40,13 @@ void main(){
   while(i<n){
 	  randarrivalHour = 0;
 	  while (randarrivalHour<7){
-
 		v = (rand()%10);
-		v = v/10;	
+		v = v/10;
+		if(v>0.5){
+			vip.push(1);
+		}else{
+			vip.push(0);
+		}
 		rv = (rand()%10);
 		rv = rv/10;	
 		randarrival = -log(1-v)*a;
@@ -64,6 +74,8 @@ void main(){
 	  countpeople = countpeople + arrs.size();
 	  arrs.erase(arrs.begin(),arrs.end());
 	  servicing.erase(servicing.begin(),servicing.end());
+	  // Have to empty the que here.
+	  // TODO
 	i++;
   }
 	for(std::vector<float>::iterator it = waiting.begin(); it != waiting.end(); ++it){
@@ -72,7 +84,7 @@ void main(){
 	cout << "Diff is";
 	cout << diff;
 	cout << "avg diff is";
-	cout << diff/ n * countpeople;
+	cout << diff/ (n * countpeople);
 
    system("pause");
 }
